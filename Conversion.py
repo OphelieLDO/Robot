@@ -29,7 +29,7 @@ entryCSV = Entry(fenetre, textvariable=filename, width="80")
 entryCSV.pack()
 
 
-# Fonction pour selectionner le dossier de destination
+# Fonction pour selectionner le dossier de destinationb h
 def directorySelect():
     directoryname.set(askdirectory(initialdir="/", title='Choisissez un repertoire'))
 
