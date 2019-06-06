@@ -4,6 +4,7 @@
 """Example: Using ALDialog Methods"""
 import os
 from tkinter import *
+import csv
 from tkinter import filedialog
 
 # Création de la fenetre et titre
@@ -41,7 +42,16 @@ directoryname = StringVar(fenetre)
 entryDirectory = Entry(fenetre, textvariable=directoryname, width="80")
 entryDirectory.pack()
 
-bouton_lancer = Button(fenetre, text="Lancer", command=fenetre.quit)  # mettre la commande qui mènera au traitement
+
+def read_csv():
+    print(entryCSV.get())
+    with open(entryCSV.get(), newline='') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=';')
+        for row in spamreader:
+            print(', '.join(row))
+
+
+bouton_lancer = Button(fenetre, text="Lancer", command=read_csv)  # mettre la commande qui mènera au traitement
 bouton_lancer.pack()
 
 bouton_quitter = Button(fenetre, text="Quitter", command=fenetre.quit)
