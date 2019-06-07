@@ -44,10 +44,10 @@ entryDirectory.pack()
 
 
 # Permet de convertir les ligne du csv
-def replace_csv():
+def replace_question_csv(question):
     print("replace_csv")
     # faire un replace pour convertir le csv en ligne .top
-
+    return question
 
 # Permet de créer le .top avec le header qui est bon
 def create_top():
@@ -60,7 +60,7 @@ def create_top():
         for row in reader:
             question = row[0]
             reponse = row[1]
-            fichier.write("\nu:("+question+") "+reponse)
+            fichier.write("\nu:("+replace_question_csv(question)+") "+replace_question_csv(reponse))
             print(reponse)
 
     fichier.close()

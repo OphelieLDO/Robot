@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="41ff79eb-8551-4a3d-94c5-b2f14e673741" name="Default Changelist" comment="">
+    <list default="true" id="41ff79eb-8551-4a3d-94c5-b2f14e673741" name="Default Changelist" comment="ajout de la creation du .top avec ajout des lignes brutes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/Conversion.py" afterDir="false" />
     </list>
@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Conversion.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="62" column="29" lean-forward="true" selection-start-line="62" selection-start-column="29" selection-end-line="62" selection-end-column="29" />
+            <state relative-caret-position="17">
+              <caret line="46" column="24" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="24" />
               <folding>
                 <element signature="e#89#98#0" expanded="true" />
               </folding>
@@ -124,7 +124,7 @@
       <workItem from="1559737288954" duration="3418000" />
       <workItem from="1559805419155" duration="4801000" />
       <workItem from="1559828086912" duration="5020000" />
-      <workItem from="1559893673679" duration="3774000" />
+      <workItem from="1559893673679" duration="4571000" />
     </task>
     <task id="LOCAL-00001" summary="ajout de la lecture du csv">
       <created>1559833519674</created>
@@ -133,11 +133,18 @@
       <option name="project" value="LOCAL" />
       <updated>1559833519674</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="ajout de la creation du .top avec ajout des lignes brutes">
+      <created>1559897886572</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1559897886572</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17013000" />
+    <option name="totallyTimeSpent" value="17810000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -180,7 +187,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ajout de la lecture du csv" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajout de la lecture du csv" />
+    <MESSAGE value="ajout de la creation du .top avec ajout des lignes brutes" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajout de la creation du .top avec ajout des lignes brutes" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Robot$Compilateur_.coverage" NAME="Compilateur  Coverage Results" MODIFIED="1559897808629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -193,10 +201,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/Conversion.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="62" column="29" lean-forward="true" selection-start-line="62" selection-start-column="29" selection-end-line="62" selection-end-column="29" />
+        <state relative-caret-position="17">
+          <caret line="46" column="24" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="24" />
           <folding>
             <element signature="e#89#98#0" expanded="true" />
           </folding>
