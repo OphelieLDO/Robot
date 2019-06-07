@@ -43,15 +43,30 @@ entryDirectory = Entry(fenetre, textvariable=directoryname, width="80")
 entryDirectory.pack()
 
 
-def read_csv():
-    print(entryCSV.get())
+# Permet de convertir les ligne du csv
+def replace_csv():
+    print("replace_csv")
+    # faire un replace pour convertir le csv en ligne .top
+
+
+# Permet de créer le .top avec le header qui est bon
+def create_top():
+    # Creer le topic
+    fichier = open(entryDirectory.get() + "/universite.top", "w")
+    fichier.write("topic: ~universite()\nlanguage: frf")
+
     with open(entryCSV.get(), newline='') as csvfile:
-        spamreader = csv.reader(csvfile, delimiter=';')
-        for row in spamreader:
-            print(', '.join(row))
+        reader = csv.reader(csvfile, delimiter=';')
+        for row in reader:
+            question = row[0]
+            reponse = row[1]
+            fichier.write("\nu:("+question+") "+reponse)
+            print(reponse)
+
+    fichier.close()
 
 
-bouton_lancer = Button(fenetre, text="Lancer", command=read_csv)  # mettre la commande qui mènera au traitement
+bouton_lancer = Button(fenetre, text="Lancer", command=create_top)  # mettre la commande qui mènera au traitement
 bouton_lancer.pack()
 
 bouton_quitter = Button(fenetre, text="Quitter", command=fenetre.quit)
