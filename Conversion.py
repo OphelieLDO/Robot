@@ -4,6 +4,7 @@
 """Example: Using ALDialog Methods"""
 import os
 from tkinter import *
+import csv
 from tkinter import filedialog
 
 # Création de la fenetre et titre
@@ -41,7 +42,31 @@ directoryname = StringVar(fenetre)
 entryDirectory = Entry(fenetre, textvariable=directoryname, width="80")
 entryDirectory.pack()
 
-bouton_lancer = Button(fenetre, text="Lancer", command=fenetre.quit)  # mettre la commande qui mènera au traitement
+
+# Permet de convertir les ligne du csv
+def replace_question_csv(question):
+    print("replace_csv")
+    # faire un replace pour convertir le csv en ligne .top
+    return question
+
+# Permet de créer le .top avec le header qui est bon
+def create_top():
+    # Creer le topic
+    fichier = open(entryDirectory.get() + "/universite.top", "w")
+    fichier.write("topic: ~universite()\nlanguage: frf")
+
+    with open(entryCSV.get(), newline='') as csvfile:
+        reader = csv.reader(csvfile, delimiter=';')
+        for row in reader:
+            question = row[0]
+            reponse = row[1]
+            fichier.write("\nu:("+replace_question_csv(question)+") "+replace_question_csv(reponse))
+            print(reponse)
+
+    fichier.close()
+
+
+bouton_lancer = Button(fenetre, text="Lancer", command=create_top)  # mettre la commande qui mènera au traitement
 bouton_lancer.pack()
 
 bouton_quitter = Button(fenetre, text="Quitter", command=fenetre.quit)
