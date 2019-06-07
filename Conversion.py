@@ -21,7 +21,6 @@ champ_label.pack()
 def csv_fileSelect():
     filename.set(askopenfilename(filetypes=(("csv files", "*.csv"), ("all files", "*.*"))))
 
-
 bouton_choisir_csv = Button(fenetre, text="Choisir le fichier csv", command=csv_fileSelect)
 bouton_choisir_csv.pack()
 
