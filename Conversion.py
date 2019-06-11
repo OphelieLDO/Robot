@@ -5,7 +5,7 @@
 import os
 from tkinter import *
 import csv
-import ftplib as ftp
+from ftplib import FTP
 
 
 # Création de la fenetre et titre
@@ -85,16 +85,15 @@ def load():
     host = "169.254.129.162"  # adresse du serveur FTP
     user = "nao"  # votre identifiant
     password = "nao"  # votre mot de passe
-    connect = ftp.ftplib(host, user, password)  # on se connecte
-    commande = raw_input('CWD dialog')  # entrez la commande à effectuer
-    connect.sendcmd(commande)
+    connect = FTP(host, user, password)
+    connect.sendcmd('CWD dialog')
     ##Ouverture du fichier
-    fichier = entryDirectory.get() + "/universite.top"
-    file = open(fichier, 'rb')  # ici, j'ouvre le fichier ftp.py
-    connect.storbinary('STOR ' + fichier,
-                       file)  # ici (où connect est encore la variable de la connexion), j'indique le fichier à envoyer
-    file.close()  # on ferme le fichier
-    connect.quit()  # où "connect" est le nom de la variable dans laquelle vous avez déclaré la connexion !
+    f_name = entryDirectory.get() + "/universite.top"
+    f = open(f_name, 'rb')
+    connect.storbinary('STOR ' + f_name, f)
+    connect.retrlines('LIST')
+    f.close()
+    connect.close()
 
 
 def traitement():
@@ -102,7 +101,7 @@ def traitement():
     load()
 
 
-bouton_lancer = Button(fenetre, text="Lancer", command=load)  # mettre la commande qui mènera au traitement
+bouton_lancer = Button(fenetre, text="Lancer", command=traitement)  # mettre la commande qui mènera au traitement
 bouton_lancer.pack()
 
 bouton_quitter = Button(fenetre, text="Quitter", command=fenetre.quit)

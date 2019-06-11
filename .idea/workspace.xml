@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41ff79eb-8551-4a3d-94c5-b2f14e673741" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Conversion.py" beforeDir="false" afterPath="$PROJECT_DIR$/Conversion.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,27 +15,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Conversion.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="65" selection-start-line="65" selection-end-line="65" />
+            <state relative-caret-position="187">
+              <caret line="83" column="20" lean-forward="true" selection-start-line="83" selection-start-column="20" selection-end-line="83" selection-end-column="20" />
               <folding>
                 <element signature="e#89#98#0" expanded="true" />
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testReplace.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="72" column="21" lean-forward="true" selection-start-line="10" selection-end-line="72" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Replace.py">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -48,6 +32,11 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>load</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
@@ -65,6 +54,7 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-12" />
+    <option name="y" value="-12" />
     <option name="width" value="981" />
     <option name="height" value="1044" />
   </component>
@@ -143,7 +133,7 @@
       <workItem from="1559805419155" duration="4801000" />
       <workItem from="1559828086912" duration="5020000" />
       <workItem from="1559893673679" duration="11079000" />
-      <workItem from="1560255382369" duration="5999000" />
+      <workItem from="1560255382369" duration="10056000" />
     </task>
     <task id="LOCAL-00001" summary="ajout de la lecture du csv">
       <created>1559833519674</created>
@@ -173,11 +163,18 @@
       <option name="project" value="LOCAL" />
       <updated>1560258505142</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="ajout de la fonction de conversion">
+      <created>1560262190650</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1560262190650</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30317000" />
+    <option name="totallyTimeSpent" value="34374000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -190,14 +187,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.15925626" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15925626" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.33451328" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4995958" visible="true" weight="0.32460734" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4995958" weight="0.32460734" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39965096" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -244,7 +240,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ajout de la lecture du csv" />
     <MESSAGE value="ajout de la creation du .top avec ajout des lignes brutes" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajout de la creation du .top avec ajout des lignes brutes" />
+    <MESSAGE value="ajout de la fonction de conversion" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajout de la fonction de conversion" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -258,7 +255,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Robot$Compilateur_.coverage" NAME="Compilateur  Coverage Results" MODIFIED="1560262083121" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Robot$Compilateur_.coverage" NAME="Compilateur  Coverage Results" MODIFIED="1560266263072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/tkinter/__init__.py">
@@ -272,13 +269,6 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/NaoFalanteModule.py" />
-    <entry file="file://$PROJECT_DIR$/testReplace.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="72" column="21" lean-forward="true" selection-start-line="10" selection-end-line="72" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2019.1/system/python_stubs/805879315/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -286,13 +276,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/testReplace.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="72" column="21" lean-forward="true" selection-start-line="10" selection-end-line="72" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Replace.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/ftplib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="398" selection-start-line="398" selection-end-line="398" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Conversion.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="65" selection-start-line="65" selection-end-line="65" />
+        <state relative-caret-position="187">
+          <caret line="83" column="20" lean-forward="true" selection-start-line="83" selection-start-column="20" selection-end-line="83" selection-end-column="20" />
           <folding>
             <element signature="e#89#98#0" expanded="true" />
           </folding>
