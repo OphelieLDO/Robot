@@ -5,9 +5,8 @@
 import os
 from tkinter import *
 import csv
-import qi
-import argparse
-import sys
+import ftplib as ftp
+
 
 # Création de la fenetre et titre
 from tkinter.filedialog import askopenfilename, askdirectory
@@ -46,10 +45,21 @@ entryDirectory.pack()
 
 
 # Permet de convertir les lignes du csv
-def replace_question_csv(question):
-    print("replace_csv")
-    # faire un replace pour convertir le csv en ligne .top
-    return question
+def replace_question_csv(str):
+    elements = ["/", "#", ":", "-", "!", "_", "@", ";", "~", "'", "l'", "j'", "s'", "t'", "m'", "d'", "c'", "n'", "qu'"]
+    for elem in elements:
+        str = str.replace(elem, " [" + elem + "] ")
+    elements = [" s ", " m ", " t ", " j ", " l ", " d ",
+                " comment ", " quoi ", " du ", " de ", " des ", " la ", " le ", " les ",
+                " à ", " quel ", " quels ", " quelle ", " quelles ", " a ", " je ", " tu ", " il ",
+                " elle ", " on ", " nous ", " vous ", " ils ", " elles ", " mais ", " car ", " et ", " donc ",
+                " ni ", " ou ", " car ", " or ", " comme ", " lorsque ", " quand ", " si ", " ce ", " ces ",
+                " cette ", " cet ", " un ", " mon ", " ton ", " son ", " notre ", " votre ", " leur ", " ma ", " ta "
+                " sa ", " mes ", " tes ", " ses "]
+    for elem in elements:
+        str = str.replace(elem, " [" + elem.replace(" ", "") + "] ")
+    str = str.replace("  ", " ")
+    return str
 
 
 # Permet de créer le .top avec le header et les lignes du csv
