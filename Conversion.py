@@ -108,14 +108,20 @@ def create_top(nomtopic):
             question = row[0]
             reponse = row[1]
             fichier.write("\nu:(" + replace_question_csv(question) + ") " + reponse)
-            if row[3] <> "":
-                reponse_user = row[2]
-                reponse_robot = row[3]
-                reponse_user = reponse_user.split("/")
-                reponse_robot = reponse_robot.split("/")
-                if len(reponse_user) == len(reponse_robot):
-                    for i in range(len(reponse_robot)):
-                        fichier.write("\n\tu1:(" + replace_question_csv(reponse_user[i]) + ") " + reponse_robot[i])
+            i = 3
+            nb = 1
+            while len(row) > i:
+                if row[i] != "":
+                    reponse_user = row[i - 1]
+                    reponse_robot = row[i]
+                    reponse_user = reponse_user.split("/")
+                    reponse_robot = reponse_robot.split("/")
+                    if len(reponse_user) == len(reponse_robot):
+                        for k in range(len(reponse_robot)):
+                            fichier.write(
+                                "\n\tu" + str(nb) + ":(" + replace_question_csv(reponse_user[k]) + ") " + reponse_robot[k])
+                i = i + 2
+                nb = nb+1
         fichier.close()
 
 
@@ -216,8 +222,8 @@ def load():
     nomtopic = entreetopic.get()
     host = entreeip.get()
     create_top(nomtopic)
-    load2(nomtopic, host)
-    load_nao(nomtopic, host)
+    # load2(nomtopic, host)
+    # load_nao(nomtopic, host)
 
 
 bouton_nao = Button(fenetre, text="Lancer le programme", command=load)
