@@ -4,18 +4,47 @@
 """Example: Using ALDialog Methods"""
 import os
 from tkinter import *
+import qi
 import csv
-from ftplib import FTP
-
+import paramiko
 
 # Création de la fenetre et titre
 from tkinter.filedialog import askopenfilename, askdirectory
 
 fenetre = Tk()
 fenetre.geometry("500x200")
+fenetre.title("Convertisseur de csv à top")
 champ_label = Label(fenetre, text="Bienvenue!")
 # On affiche le label dans la fenêtre
 champ_label.pack()
+
+session = qi.Session()
+ALDialog = None
+topic_name = None
+
+
+def quitter():
+    try:
+        global ALDialog
+        global session
+        global topic_name
+        global root
+        ALDialog.unsubscribe('my_dialog_example')
+        # Deactivating the topic
+        # Loading the topic given by the user (absolute path is required)
+        ALDialog.deactivateTopic(topic_name)
+        # now that the dialog engine is stopped and there are no more activated topics,
+        # we can unload our topic and free the associated memory
+        ALDialog.unloadTopic(topic_name)
+        session.close()
+        fenetre.destroy()
+        sys.exit()
+    except RuntimeError:
+        print(
+            "\nCan't connect to Naoqi at IP {} (port {}).\nPlease check your script's arguments. Run with -h option for help.\n".format(
+                "192.168.43.232", 9559))
+        fenetre.destroy()
+        sys.exit(1)
 
 
 # Fonction pour selectionner le fichier csv
@@ -46,18 +75,20 @@ entryDirectory.pack()
 
 # Permet de convertir les lignes du csv
 def replace_question_csv(str):
+    str = str.lower()
     elements = ["/", "#", ":", "-", "!", "_", "@", ";", "~", "'", "l'", "j'", "s'", "t'", "m'", "d'", "c'", "n'", "qu'"]
     for elem in elements:
-        str = str.replace(elem, " [" + elem + "] ")
+        str = str.replace(elem, " {" + elem + "} ")
     elements = [" s ", " m ", " t ", " j ", " l ", " d ",
                 " comment ", " quoi ", " du ", " de ", " des ", " la ", " le ", " les ",
-                " à ", " quel ", " quels ", " quelle ", " quelles ", " a ", " je ", " tu ", " il ",
-                " elle ", " on ", " nous ", " vous ", " ils ", " elles ", " mais ", " car ", " et ", " donc ",
+                " à ", " quel ", " quels ", " quelle ", " quelles ", " a ", " je ", " tu ", " il ", " que "
+                                                                                                    " elle ", " on ",
+                " nous ", " vous ", " ils ", " elles ", " mais ", " car ", " et ", " donc ",
                 " ni ", " ou ", " car ", " or ", " comme ", " lorsque ", " quand ", " si ", " ce ", " ces ",
-                " cette ", " cet ", " un ", " mon ", " ton ", " son ", " notre ", " votre ", " leur ", " ma ", " ta "
-                " sa ", " mes ", " tes ", " ses "]
+                " cette ", " cet ", " un ", " mon ", " ton ", " son ", " notre ", " votre ", " leur ", " ma ", " ta ",
+                " sa ", " mes ", " tes ", " ses ", " puis ", " ayant ", " en ", " est ", " à "]
     for elem in elements:
-        str = str.replace(elem, " [" + elem.replace(" ", "") + "] ")
+        str = str.replace(elem, " {" + elem.replace(" ", "") + "} ")
     str = str.replace("  ", " ")
     return str
 
@@ -65,7 +96,11 @@ def replace_question_csv(str):
 # Permet de créer le .top avec le header et les lignes du csv
 def create_top():
     # Creer le topic
-    fichier = open(entryDirectory.get() + "/universite.top", "w")
+    if "/" in entryDirectory.get():
+        fichier = open(entryDirectory.get() + "/universite.top", "w")
+    else:
+        fichier = open(entryDirectory.get() + "\\universite.top", "w")
+
     fichier.write("topic: ~universite()\nlanguage: frf")
 
     with open(entryCSV.get(), newline='') as csvfile:
@@ -73,27 +108,27 @@ def create_top():
         for row in reader:
             question = row[0]
             reponse = row[1]
-            fichier.write("\nu:(" + replace_question_csv(question) + ") " + replace_question_csv(reponse))
-            print(reponse)
-
-    fichier.close()
+            fichier.write("\nu:(" + replace_question_csv(question) + ") " + reponse)
+        fichier.close()
 
 
 def load():
     print("Transfert vers Nao")
-    ##Connection ftp
+    # Connection ftp
     host = "169.254.129.162"  # adresse du serveur FTP
-    user = "nao"  # votre identifiant
-    password = "nao"  # votre mot de passe
-    connect = FTP(host, user, password)
-    connect.sendcmd('CWD dialog')
-    ##Ouverture du fichier
-    f_name = entryDirectory.get() + "/universite.top"
-    f = open(f_name, 'rb')
-    connect.storbinary('STOR ' + f_name, f)
-    connect.retrlines('LIST')
-    f.close()
-    connect.close()
+    if "/" in entryDirectory.get():
+        c_path = open(entryDirectory.get() + "/universite.top", "w")
+    else:
+        c_path = open(entryDirectory.get() + "\\universite.top", "w")
+    r_path = "/home/nao/dialog"
+
+    transport = paramiko.Transport(host, 22)
+    transport.connect(username="nao", password="nao")
+    sftp = paramiko.SFTPClient.from_transport(transport)
+    sftp.put(c_path, r_path)
+
+    sftp.close()
+    transport.close()
 
 
 def traitement():
@@ -104,7 +139,7 @@ def traitement():
 bouton_lancer = Button(fenetre, text="Lancer", command=traitement)  # mettre la commande qui mènera au traitement
 bouton_lancer.pack()
 
-bouton_quitter = Button(fenetre, text="Quitter", command=fenetre.quit)
+bouton_quitter = Button(fenetre, text="Quitter", command=quitter)
 bouton_quitter.pack()
 
 # On démarre la boucle Tkinter qui s'interompt quand on ferme la fenêtre
