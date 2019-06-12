@@ -89,7 +89,9 @@ def replace_question_csv(str):
                 " sa ", " mes ", " tes ", " ses ", " puis ", " ayant ", " en ", " est ", " à "]
     for elem in elements:
         str = str.replace(elem, " {" + elem.replace(" ", "") + "} ")
-    str = str.replace("  ", " ")
+
+    while "  " in str:
+        str = str.replace("  ", " ")
     return str
 
 
@@ -112,27 +114,31 @@ def create_top():
         fichier.close()
 
 
-def load2(ip):
+# Cette fonction permet de transférer à Nao via TCP mais ne fonctionne pas actuellement
+def load2():
     print("Transfert vers Nao")
     # Connection ftp
     host = "169.254.129.162"  # adresse du serveur FTP
     if "/" in entryDirectory.get():
-        c_path = open(entryDirectory.get() + "/universite.top", "w")
+        c_path = entryDirectory.get() + "/universite.top"
     else:
-        c_path = open(entryDirectory.get() + "\\universite.top", "w")
-    r_path = "/home/nao/dialog"
+        c_path = entryDirectory.get() + "\\universite.top"
 
-    transport = paramiko.Transport(host, 22)
-    transport.connect(username="nao", password="nao")
-    sftp = paramiko.SFTPClient.from_transport(transport)
+    r_path = "/home/nao/dialog/universite.top"
+    print(c_path)
+    print (r_path)
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect(host, username="nao", password="nao")
+    sftp = ssh.open_sftp()
     sftp.put(c_path, r_path)
-
     sftp.close()
-    transport.close()
+    ssh.close()
 
 
 def conversion():
     create_top()
+    load2()
 
 
 bouton_lancer = Button(fenetre, text="Lancer la conversion",
@@ -156,7 +162,8 @@ entreeip = Entry(fenetre, textvariable=host, width=30)
 entreeip.pack()
 
 
-def load():
+# Permet de lancer nao avec le Topic demandé
+def load_nao():
     host = entreeip.get()
     nomtopic = entreetopic.get()
     print (host)
@@ -177,7 +184,7 @@ def load():
     # Getting the service ALDialog
     frame.insert(END, "\n" + "Chargement du dialogue")
     # download_data()
-    topic_path = "/home/nao/dialog/"+nomtopic+".top"
+    topic_path = "/home/nao/dialog/" + nomtopic + ".top"
     # Loading the topic given by the user (absolute path is required)
     topf_path = topic_path.decode('utf-8')
     print ("step 1")
@@ -193,11 +200,7 @@ def load():
     print ("step 2")
 
 
-def lancer_nao():
-    load()
-
-
-bouton_nao = Button(fenetre, text="Lancer le topic sur NAO", command=lancer_nao)
+bouton_nao = Button(fenetre, text="Lancer le topic sur NAO", command=load_nao)
 bouton_nao.pack()
 
 bouton_quitter = Button(fenetre, text="quitter", command=quitter)
