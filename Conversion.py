@@ -74,7 +74,8 @@ def replace_question_csv(str):
                 [" cours ", " classe "],
                 [" heure ", " créneau "],
                 [" matière ", " enseignement"],
-                [" secrétaire ", " assistant ", " assistante ", " responsable "])
+                [" secrétaire ", " assistant ", " assistante ", " responsable "],
+                [" bibliothèque ", " BU ", " biliotheque ", " bibliothèques ", " bibliotheques "])
     for i in range(len(elements)):
         for j in range(len(elements[i])):
             sous_str = ""
@@ -107,6 +108,14 @@ def create_top(nomtopic):
             question = row[0]
             reponse = row[1]
             fichier.write("\nu:(" + replace_question_csv(question) + ") " + reponse)
+            if row[3] <> "":
+                reponse_user = row[2]
+                reponse_robot = row[3]
+                reponse_user = reponse_user.split("/")
+                reponse_robot = reponse_robot.split("/")
+                if len(reponse_user) == len(reponse_robot):
+                    for i in range(len(reponse_robot)):
+                        fichier.write("\n\tu1:(" + replace_question_csv(reponse_user[i]) + ") " + reponse_robot[i])
         fichier.close()
 
 
@@ -179,7 +188,9 @@ filename = StringVar(fenetre)
 entryCSV = Entry(fenetre, textvariable=filename, width="80")
 entryCSV.pack()
 
-bouton_choisir_directory = Button(fenetre, text="Choisir le dossier où mettre le .top généré", command=directorySelect)
+bouton_choisir_directory = Button(fenetre, text="Choisir le dossier où mettre le .top généré\n"
+                                                "Attention: Ne doit pas être un dossier racine",
+                                  command=directorySelect)
 bouton_choisir_directory.pack()
 
 directoryname = StringVar(fenetre)
