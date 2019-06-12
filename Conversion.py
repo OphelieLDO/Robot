@@ -32,7 +32,7 @@ def quitter():
         global session
         global topic_name
         global fenetre
-        ALDialog.unsubscribe('universite')
+        ALDialog.unsubscribe(nomtopic)
         # Deactivating the topic
         # Loading the topic given by the user (absolute path is required)
         ALDialog.deactivateTopic(topic_name)
@@ -52,19 +52,41 @@ def quitter():
 # Permet de convertir les lignes du csv
 def replace_question_csv(str):
     str = str.lower()
-    elements = ["/", "#", ":", "-", "!", "_", "@", ";", "~", "'", "l'", "j'", "s'", "t'", "m'", "d'", "c'", "n'", "qu'"]
+    # On supprime les caractère spéciaux
+    elements = ["/", "#", ":", "-", "!", "_", "@", ";", "~", "'"]
     for elem in elements:
-        str = str.replace(elem, " {" + elem + "} ")
-    elements = [" s ", " m ", " t ", " j ", " l ", " d ",
+        str = str.replace(elem, " ")
+    # On met entre {} les mots non important
+    elements = [" s ", " m ", " t ", " j ", " l ", " d ", " qu ",
                 " comment ", " quoi ", " du ", " de ", " des ", " la ", " le ", " les ",
                 " à ", " quel ", " quels ", " quelle ", " quelles ", " a ", " je ", " tu ", " il ", " que ",
                 " elle ", " on ", " nous ", " vous ", " ils ", " elles ", " mais ", " car ", " et ", " donc ",
                 " ni ", " ou ", " car ", " or ", " comme ", " lorsque ", " quand ", " si ", " ce ", " ces ",
                 " cette ", " cet ", " un ", " mon ", " ton ", " son ", " notre ", " votre ", " leur ", " ma ", " ta ",
-                " sa ", " mes ", " tes ", " ses ", " puis ", " ayant ", " en ", " est ", " à "]
+                " sa ", " mes ", " tes ", " ses ", " puis ", " ayant ", " en ", " est ", " à ", " par "]
     for elem in elements:
         str = str.replace(elem, " {" + elem.replace(" ", "") + "} ")
+    # On met entre [] les mots similaire
+    elements = ([" étudiant ", " etudiant ", " étudiants ", " etudiants ", " élève ", " éleve " " elève ", " eleve ",
+                 " élèves ", "éleves ", " elèves ", " eleves "],
+                [" prof ", " professeur ", " enseignant "],
+                [" fillière ", " filière ", " filiere ", " filliere " " branche ", " diplôme ", " formation "],
+                [" cours ", " classe "],
+                [" heure ", " créneau "],
+                [" matière ", " enseignement"],
+                [" secrétaire ", " assistant ", " assistante ", " responsable "])
+    for i in range(len(elements)):
+        for j in range(len(elements[i])):
+            sous_str = ""
+            if elements[i][j] in str:
 
+                print (elements[i])
+                for k in range(len(elements[i])):
+                    sous_str = sous_str + " \"" + elements[i][k] + "\""
+                str = str.replace(elements[i][j], " [" + sous_str + "] ")
+                break
+
+    # On supprime les doubles espaces
     while "  " in str:
         str = str.replace("  ", " ")
     return str
@@ -97,6 +119,7 @@ def csv_fileSelect():
 # Fonction pour selectionner le dossier de destination
 def directorySelect():
     directoryname.set(askdirectory(initialdir="/", title='Choisissez un repertoire'))
+
 
 # Cette fonction permet de transférer à Nao via SFTP
 def load2(nomtopic, host):
@@ -183,14 +206,12 @@ entreeip = Entry(fenetre, textvariable=host, width=30)
 entreeip.pack()
 
 
-
-
 def load():
     nomtopic = entreetopic.get()
     host = entreeip.get()
     create_top(nomtopic)
-    load2(nomtopic, host)
-    load_nao(nomtopic, host)
+    # load2(nomtopic, host)
+    # load_nao(nomtopic, host)
 
 
 bouton_nao = Button(fenetre, text="Lancer le programme", command=load)
