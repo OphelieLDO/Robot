@@ -67,7 +67,7 @@ def replace_question_csv(str):
     for elem in elements:
         str = str.replace(elem, " {" + elem.replace(" ", "") + "} ")
     # On met entre [] les mots similaire
-    elements = ([" étudiant ", " etudiant ", " étudiants ", " etudiants ", " élève ", " éleve " " elève ", " eleve ",
+    elements = ([" étudiant ", " etudiant ", " étudiants ", " etudiants ", " élève ", " éleve ", " elève ", " eleve ",
                  " élèves ", "éleves ", " elèves ", " eleves "],
                 [" prof ", " professeur ", " enseignant "],
                 [" fillière ", " filière ", " filiere ", " filliere " " branche ", " diplôme ", " formation "],
@@ -79,10 +79,8 @@ def replace_question_csv(str):
         for j in range(len(elements[i])):
             sous_str = ""
             if elements[i][j] in str:
-
-                print (elements[i])
                 for k in range(len(elements[i])):
-                    sous_str = sous_str + " \"" + elements[i][k] + "\""
+                    sous_str = sous_str + elements[i][k]
                 str = str.replace(elements[i][j], " [" + sous_str + "] ")
                 break
 
@@ -104,6 +102,7 @@ def create_top(nomtopic):
 
     with open(entryCSV.get(), 'rb') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
+        next(reader)
         for row in reader:
             question = row[0]
             reponse = row[1]
@@ -123,7 +122,6 @@ def directorySelect():
 
 # Cette fonction permet de transférer à Nao via SFTP
 def load2(nomtopic, host):
-    print("Transfert vers Nao")
     nomtopic = entreetopic.get()
     # Connection ftp
     if "/" in entryDirectory.get():
@@ -132,8 +130,6 @@ def load2(nomtopic, host):
         c_path = entryDirectory.get() + "\\" + nomtopic + ".top"
 
     r_path = "/home/nao/dialog/" + nomtopic + ".top"
-    print(c_path)
-    print (r_path)
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect(host, username="nao", password="nao")
@@ -174,7 +170,6 @@ def load_nao(nomtopic, host):
     # Starting the dialog engine - we need to type an arbitrary string as the identifier
     # We subscribe only ONCE, regardless of the number of topics we have activated
     ALDialog.subscribe(nomtopic)
-    print ("step 2")
 
 
 bouton_choisir_csv = Button(fenetre, text="Choisir le fichier csv", command=csv_fileSelect)
@@ -210,8 +205,8 @@ def load():
     nomtopic = entreetopic.get()
     host = entreeip.get()
     create_top(nomtopic)
-    # load2(nomtopic, host)
-    # load_nao(nomtopic, host)
+    load2(nomtopic, host)
+    load_nao(nomtopic, host)
 
 
 bouton_nao = Button(fenetre, text="Lancer le programme", command=load)

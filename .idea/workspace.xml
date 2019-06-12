@@ -17,10 +17,7 @@
         <entry file="file://$PROJECT_DIR$/Conversion.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="100">
-              <caret line="192" column="4" selection-start-line="192" selection-start-column="4" selection-end-line="192" selection-end-column="4" />
-              <folding>
-                <element signature="e#89#126#0" expanded="true" />
-              </folding>
+              <caret line="208" column="4" selection-start-line="208" selection-start-column="4" selection-end-line="208" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -39,6 +36,7 @@
       <find>load</find>
       <find>entreetopic</find>
       <find>uni</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -56,8 +54,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="949" />
-    <option name="y" value="46" />
+    <option name="x" value="-11" />
     <option name="width" value="980" />
     <option name="height" value="1044" />
   </component>
@@ -143,7 +140,8 @@
       <workItem from="1560341548902" duration="405000" />
       <workItem from="1560342166218" duration="449000" />
       <workItem from="1560342760362" duration="4000" />
-      <workItem from="1560343210829" duration="10637000" />
+      <workItem from="1560343210829" duration="11667000" />
+      <workItem from="1560371607107" duration="5110000" />
     </task>
     <task id="LOCAL-00001" summary="ajout de la lecture du csv">
       <created>1559833519674</created>
@@ -222,11 +220,25 @@
       <option name="project" value="LOCAL" />
       <updated>1560352944559</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="refonte de l'interface">
+      <created>1560354296961</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1560354296961</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Amélioration conversion texte">
+      <created>1560375983960</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1560375983960</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55529000" />
+    <option name="totallyTimeSpent" value="61669000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -241,11 +253,11 @@
     <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16734034" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16976556" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.33451328" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.33333334" />
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4995958" visible="true" weight="0.23734729" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39965096" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -300,7 +312,9 @@
     <MESSAGE value="Ajout de la connexion au Robot" />
     <MESSAGE value="MAJ Interface graphique" />
     <MESSAGE value="ajout sftp" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajout sftp" />
+    <MESSAGE value="refonte de l'interface" />
+    <MESSAGE value="Amélioration conversion texte" />
+    <option name="LAST_COMMIT_MESSAGE" value="Amélioration conversion texte" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -314,16 +328,10 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Robot$Compilateur_.coverage" NAME="Compilateur  Coverage Results" MODIFIED="1560354260556" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Robot$Compilateur_.coverage" NAME="Compilateur  Coverage Results" MODIFIED="1560376754310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/tkinter/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="1704" selection-start-line="1704" selection-end-line="1704" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/tkinter/__init__.py" />
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -337,13 +345,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/testReplace.py" />
     <entry file="file://$PROJECT_DIR$/Replace.py" />
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/ftplib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="398" selection-start-line="398" selection-end-line="398" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/ftplib.py" />
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/paramiko/sftp_client.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
@@ -354,10 +356,7 @@
     <entry file="file://$PROJECT_DIR$/Conversion.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
-          <caret line="192" column="4" selection-start-line="192" selection-start-column="4" selection-end-line="192" selection-end-column="4" />
-          <folding>
-            <element signature="e#89#126#0" expanded="true" />
-          </folding>
+          <caret line="208" column="4" selection-start-line="208" selection-start-column="4" selection-end-line="208" selection-end-column="4" />
         </state>
       </provider>
     </entry>
