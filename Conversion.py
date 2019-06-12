@@ -13,9 +13,9 @@ import qi
 from tkinter.filedialog import askopenfilename, askdirectory
 
 fenetre = Tk()
-fenetre.geometry("500x400")
-fenetre.title("Convertisseur de csv à top")
-champ_label = Label(fenetre, text="Outil de conversion de CVS à TOPIC!")
+fenetre.geometry("500x500")
+fenetre.title("Programme de conversion NAO")
+champ_label = Label(fenetre, text="\n\nOUTIL 1\nOutil de conversion de CVS à TOPIC!")
 # On affiche le label dans la fenêtre
 champ_label.pack()
 content = Frame(fenetre)
@@ -31,7 +31,7 @@ def quitter():
         global ALDialog
         global session
         global topic_name
-        global root
+        global fenetre
         ALDialog.unsubscribe('universite')
         # Deactivating the topic
         # Loading the topic given by the user (absolute path is required)
@@ -82,9 +82,8 @@ def replace_question_csv(str):
         str = str.replace(elem, " {" + elem + "} ")
     elements = [" s ", " m ", " t ", " j ", " l ", " d ",
                 " comment ", " quoi ", " du ", " de ", " des ", " la ", " le ", " les ",
-                " à ", " quel ", " quels ", " quelle ", " quelles ", " a ", " je ", " tu ", " il ", " que "
-                                                                                                    " elle ", " on ",
-                " nous ", " vous ", " ils ", " elles ", " mais ", " car ", " et ", " donc ",
+                " à ", " quel ", " quels ", " quelle ", " quelles ", " a ", " je ", " tu ", " il ", " que ",
+                " elle ", " on ", " nous ", " vous ", " ils ", " elles ", " mais ", " car ", " et ", " donc ",
                 " ni ", " ou ", " car ", " or ", " comme ", " lorsque ", " quand ", " si ", " ce ", " ces ",
                 " cette ", " cet ", " un ", " mon ", " ton ", " son ", " notre ", " votre ", " leur ", " ma ", " ta ",
                 " sa ", " mes ", " tes ", " ses ", " puis ", " ayant ", " en ", " est ", " à "]
@@ -140,9 +139,17 @@ bouton_lancer = Button(fenetre, text="Lancer la conversion",
                        command=conversion)  # mettre la commande qui mènera au traitement
 bouton_lancer.pack()
 
-champip = Label(fenetre, text="\n\nLancer NAO\n Attention, il faut avoir transférer le .top dans nao au préalable\n"
-                              "\nEntrez l'IP!")
-champip.pack()
+champ2 = Label(fenetre, text="\n\nOUTIL 2\nLancer NAO\n Attention, il faut avoir transférer le .top dans nao au "
+                             "préalable\n "
+                             "\nEntrez le nom du fichier généré (sans le .top)")
+champ2.pack()
+
+nomtopic = StringVar()
+nomtopic.set("universite")
+entreetopic = Entry(fenetre, textvariable=nomtopic, width=30)
+entreetopic.pack()
+champ3 = Label(fenetre, text="\nEntrez l'IP!")
+champ3.pack()
 host = StringVar()
 host.set("169.254.129.162")
 entreeip = Entry(fenetre, textvariable=host, width=30)
@@ -151,6 +158,7 @@ entreeip.pack()
 
 def load():
     host = entreeip.get()
+    nomtopic = entreetopic.get()
     print (host)
     frame.insert(END, "\n" + "Demarrage sur ip : " + host)
     try:
@@ -169,7 +177,7 @@ def load():
     # Getting the service ALDialog
     frame.insert(END, "\n" + "Chargement du dialogue")
     # download_data()
-    topic_path = "/home/nao/dialog/universite.top"
+    topic_path = "/home/nao/dialog/"+nomtopic+".top"
     # Loading the topic given by the user (absolute path is required)
     topf_path = topic_path.decode('utf-8')
     print ("step 1")
@@ -181,7 +189,7 @@ def load():
 
     # Starting the dialog engine - we need to type an arbitrary string as the identifier
     # We subscribe only ONCE, regardless of the number of topics we have activated
-    ALDialog.subscribe('universite')
+    ALDialog.subscribe(nomtopic)
     print ("step 2")
 
 
