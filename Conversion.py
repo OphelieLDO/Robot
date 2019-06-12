@@ -2,11 +2,10 @@
 # -*- encoding: UTF-8 -*-
 
 """Example: Using ALDialog Methods"""
-import os
 from tkinter import *
-import qi
 import csv
 import paramiko
+import qi
 
 # Création de la fenetre et titre
 from tkinter.filedialog import askopenfilename, askdirectory
@@ -29,7 +28,7 @@ def quitter():
         global session
         global topic_name
         global root
-        ALDialog.unsubscribe('my_dialog_example')
+        ALDialog.unsubscribe('universite')
         # Deactivating the topic
         # Loading the topic given by the user (absolute path is required)
         ALDialog.deactivateTopic(topic_name)
@@ -40,9 +39,7 @@ def quitter():
         fenetre.destroy()
         sys.exit()
     except RuntimeError:
-        print(
-            "\nCan't connect to Naoqi at IP {} (port {}).\nPlease check your script's arguments. Run with -h option for help.\n".format(
-                "192.168.43.232", 9559))
+        print("\nCan't connect to Naoqi")
         fenetre.destroy()
         sys.exit(1)
 
@@ -103,7 +100,7 @@ def create_top():
 
     fichier.write("topic: ~universite()\nlanguage: frf")
 
-    with open(entryCSV.get(), newline='') as csvfile:
+    with open(entryCSV.get(), 'rb') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         for row in reader:
             question = row[0]
@@ -133,7 +130,7 @@ def load():
 
 def traitement():
     create_top()
-    load()
+    # load()
 
 
 bouton_lancer = Button(fenetre, text="Lancer", command=traitement)  # mettre la commande qui mènera au traitement
