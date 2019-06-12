@@ -108,6 +108,7 @@ def create_top(nomtopic):
             question = row[0]
             reponse = row[1]
             fichier.write("\nu:(" + replace_question_csv(question) + ") " + reponse)
+            # Gestion des réponses multiples
             i = 3
             nb = 1
             while len(row) > i:
@@ -222,8 +223,8 @@ def load():
     nomtopic = entreetopic.get()
     host = entreeip.get()
     create_top(nomtopic)
-    # load2(nomtopic, host)
-    # load_nao(nomtopic, host)
+    load2(nomtopic, host)
+    load_nao(nomtopic, host)
 
 
 bouton_nao = Button(fenetre, text="Lancer le programme", command=load)
