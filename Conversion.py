@@ -2,6 +2,8 @@
 # -*- encoding: UTF-8 -*-
 
 """Example: Using ALDialog Methods"""
+from ScrolledText import *
+
 from tkinter import *
 import csv
 import paramiko
@@ -11,11 +13,13 @@ import qi
 from tkinter.filedialog import askopenfilename, askdirectory
 
 fenetre = Tk()
-fenetre.geometry("500x200")
+fenetre.geometry("500x400")
 fenetre.title("Convertisseur de csv à top")
-champ_label = Label(fenetre, text="Bienvenue!")
+champ_label = Label(fenetre, text="Outil de conversion de CVS à TOPIC!")
 # On affiche le label dans la fenêtre
 champ_label.pack()
+content = Frame(fenetre)
+frame = ScrolledText(content, borderwidth=5, relief="sunken", width=30, height=10)
 
 session = qi.Session()
 ALDialog = None
@@ -109,7 +113,7 @@ def create_top():
         fichier.close()
 
 
-def load():
+def load2(ip):
     print("Transfert vers Nao")
     # Connection ftp
     host = "169.254.129.162"  # adresse du serveur FTP
@@ -128,15 +132,67 @@ def load():
     transport.close()
 
 
-def traitement():
+def conversion():
     create_top()
-    # load()
 
 
-bouton_lancer = Button(fenetre, text="Lancer", command=traitement)  # mettre la commande qui mènera au traitement
+bouton_lancer = Button(fenetre, text="Lancer la conversion",
+                       command=conversion)  # mettre la commande qui mènera au traitement
 bouton_lancer.pack()
 
-bouton_quitter = Button(fenetre, text="Quitter", command=quitter)
+champip = Label(fenetre, text="\n\nLancer NAO\n Attention, il faut avoir transférer le .top dans nao au préalable\n"
+                              "\nEntrez l'IP!")
+champip.pack()
+host = StringVar()
+host.set("169.254.129.162")
+entreeip = Entry(fenetre, textvariable=host, width=30)
+entreeip.pack()
+
+
+def load():
+    host = entreeip.get()
+    print (host)
+    frame.insert(END, "\n" + "Demarrage sur ip : " + host)
+    try:
+        global session
+        global ALDialog
+        session.connect("tcp://{}:{}".format(str(host), 9559))
+        ALDialog = session.service("ALDialog")
+
+    except RuntimeError:
+        raise Exception("Impossible de se connecter")
+
+    """
+    This example uses ALDialog methods.
+    It's a short dialog session with one topic.
+    """
+    # Getting the service ALDialog
+    frame.insert(END, "\n" + "Chargement du dialogue")
+    # download_data()
+    topic_path = "/home/nao/dialog/universite.top"
+    # Loading the topic given by the user (absolute path is required)
+    topf_path = topic_path.decode('utf-8')
+    print ("step 1")
+    global topic_name
+    topic_name = ALDialog.loadTopic(topf_path.encode('utf-8'))
+
+    # Activating the loaded topic
+    ALDialog.activateTopic(topic_name)
+
+    # Starting the dialog engine - we need to type an arbitrary string as the identifier
+    # We subscribe only ONCE, regardless of the number of topics we have activated
+    ALDialog.subscribe('universite')
+    print ("step 2")
+
+
+def lancer_nao():
+    load()
+
+
+bouton_nao = Button(fenetre, text="Lancer le topic sur NAO", command=lancer_nao)
+bouton_nao.pack()
+
+bouton_quitter = Button(fenetre, text="quitter", command=quitter)
 bouton_quitter.pack()
 
 # On démarre la boucle Tkinter qui s'interompt quand on ferme la fenêtre
