@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Conversion.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="194" column="64" selection-start-line="194" selection-start-column="64" selection-end-line="194" selection-end-column="64" />
+            <state relative-caret-position="100">
+              <caret line="192" column="4" selection-start-line="192" selection-start-column="4" selection-end-line="192" selection-end-column="4" />
               <folding>
                 <element signature="e#89#126#0" expanded="true" />
               </folding>
@@ -37,6 +37,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>load</find>
+      <find>entreetopic</find>
+      <find>uni</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -141,7 +143,7 @@
       <workItem from="1560341548902" duration="405000" />
       <workItem from="1560342166218" duration="449000" />
       <workItem from="1560342760362" duration="4000" />
-      <workItem from="1560343210829" duration="4261000" />
+      <workItem from="1560343210829" duration="10637000" />
     </task>
     <task id="LOCAL-00001" summary="ajout de la lecture du csv">
       <created>1559833519674</created>
@@ -199,11 +201,32 @@
       <option name="project" value="LOCAL" />
       <updated>1560344354839</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Ajout de la connexion au Robot">
+      <created>1560347641629</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1560347641629</updated>
+    </task>
+    <task id="LOCAL-00010" summary="MAJ Interface graphique">
+      <created>1560348896936</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1560348896936</updated>
+    </task>
+    <task id="LOCAL-00011" summary="ajout sftp">
+      <created>1560352944559</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1560352944559</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49153000" />
+    <option name="totallyTimeSpent" value="55529000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -215,7 +238,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="23" width="1295" height="704" extended-state="6" />
+    <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16734034" />
@@ -223,7 +246,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.33451328" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4995958" visible="true" weight="0.4938918" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4995958" visible="true" weight="0.23734729" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39965096" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -274,7 +297,10 @@
     <MESSAGE value="fonction de trasfert ftp" />
     <MESSAGE value="Ajout fonction pour conneciton nao" />
     <MESSAGE value="PAssage en Python 2.7 (attention, plus valable en 2020 mais naoqi ne supporte que le 2.7 pour le moment)" />
-    <option name="LAST_COMMIT_MESSAGE" value="PAssage en Python 2.7 (attention, plus valable en 2020 mais naoqi ne supporte que le 2.7 pour le moment)" />
+    <MESSAGE value="Ajout de la connexion au Robot" />
+    <MESSAGE value="MAJ Interface graphique" />
+    <MESSAGE value="ajout sftp" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajout sftp" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -288,7 +314,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Robot$Compilateur_.coverage" NAME="Compilateur  Coverage Results" MODIFIED="1560347549335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Robot$Compilateur_.coverage" NAME="Compilateur  Coverage Results" MODIFIED="1560354260556" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/tkinter/__init__.py">
@@ -318,10 +344,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/paramiko/sftp_client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="801" selection-start-line="801" selection-end-line="801" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Conversion.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="194" column="64" selection-start-line="194" selection-start-column="64" selection-end-line="194" selection-end-column="64" />
+        <state relative-caret-position="100">
+          <caret line="192" column="4" selection-start-line="192" selection-start-column="4" selection-end-line="192" selection-end-column="4" />
           <folding>
             <element signature="e#89#126#0" expanded="true" />
           </folding>

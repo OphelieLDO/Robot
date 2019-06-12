@@ -15,7 +15,7 @@ from tkinter.filedialog import askopenfilename, askdirectory
 fenetre = Tk()
 fenetre.geometry("500x500")
 fenetre.title("Programme de conversion NAO")
-champ_label = Label(fenetre, text="\n\nOUTIL 1\nOutil de conversion de CVS à TOPIC!")
+champ_label = Label(fenetre, text="Outil de conversion de CVS à TOPIC! Le fichier est généré et envoyé sur NAO")
 # On affiche le label dans la fenêtre
 champ_label.pack()
 content = Frame(fenetre)
@@ -46,32 +46,7 @@ def quitter():
         print("\nCan't connect to Naoqi")
         fenetre.destroy()
         sys.exit(1)
-
-
-# Fonction pour selectionner le fichier csv
-def csv_fileSelect():
-    filename.set(askopenfilename(filetypes=(("csv files", "*.csv"), ("all files", "*.*"))))
-
-
-bouton_choisir_csv = Button(fenetre, text="Choisir le fichier csv", command=csv_fileSelect)
-bouton_choisir_csv.pack()
-
-filename = StringVar(fenetre)
-entryCSV = Entry(fenetre, textvariable=filename, width="80")
-entryCSV.pack()
-
-
-# Fonction pour selectionner le dossier de destination
-def directorySelect():
-    directoryname.set(askdirectory(initialdir="/", title='Choisissez un repertoire'))
-
-
-bouton_choisir_directory = Button(fenetre, text="Choisir le dossier où mettre le .top généré", command=directorySelect)
-bouton_choisir_directory.pack()
-
-directoryname = StringVar(fenetre)
-entryDirectory = Entry(fenetre, textvariable=directoryname, width="80")
-entryDirectory.pack()
+    fenetre.destroy()
 
 
 # Permet de convertir les lignes du csv
@@ -96,14 +71,14 @@ def replace_question_csv(str):
 
 
 # Permet de créer le .top avec le header et les lignes du csv
-def create_top():
+def create_top(nomtopic):
     # Creer le topic
     if "/" in entryDirectory.get():
-        fichier = open(entryDirectory.get() + "/universite.top", "w")
+        fichier = open(entryDirectory.get() + "/" + nomtopic + ".top", "w")
     else:
-        fichier = open(entryDirectory.get() + "\\universite.top", "w")
+        fichier = open(entryDirectory.get() + "\\" + nomtopic + ".top", "w")
 
-    fichier.write("topic: ~universite()\nlanguage: frf")
+    fichier.write("topic: ~" + nomtopic + "()\nlanguage: frf")
 
     with open(entryCSV.get(), 'rb') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
@@ -114,17 +89,26 @@ def create_top():
         fichier.close()
 
 
-# Cette fonction permet de transférer à Nao via TCP mais ne fonctionne pas actuellement
-def load2():
-    print("Transfert vers Nao")
-    # Connection ftp
-    host = "169.254.129.162"  # adresse du serveur FTP
-    if "/" in entryDirectory.get():
-        c_path = entryDirectory.get() + "/universite.top"
-    else:
-        c_path = entryDirectory.get() + "\\universite.top"
+# Fonction pour selectionner le fichier csv
+def csv_fileSelect():
+    filename.set(askopenfilename(filetypes=(("csv files", "*.csv"), ("all files", "*.*"))))
 
-    r_path = "/home/nao/dialog/universite.top"
+
+# Fonction pour selectionner le dossier de destination
+def directorySelect():
+    directoryname.set(askdirectory(initialdir="/", title='Choisissez un repertoire'))
+
+# Cette fonction permet de transférer à Nao via SFTP
+def load2(nomtopic, host):
+    print("Transfert vers Nao")
+    nomtopic = entreetopic.get()
+    # Connection ftp
+    if "/" in entryDirectory.get():
+        c_path = entryDirectory.get() + "/" + nomtopic + ".top"
+    else:
+        c_path = entryDirectory.get() + "\\" + nomtopic + ".top"
+
+    r_path = "/home/nao/dialog/" + nomtopic + ".top"
     print(c_path)
     print (r_path)
     ssh = paramiko.SSHClient()
@@ -136,37 +120,8 @@ def load2():
     ssh.close()
 
 
-def conversion():
-    create_top()
-    load2()
-
-
-bouton_lancer = Button(fenetre, text="Lancer la conversion",
-                       command=conversion)  # mettre la commande qui mènera au traitement
-bouton_lancer.pack()
-
-champ2 = Label(fenetre, text="\n\nOUTIL 2\nLancer NAO\n Attention, il faut avoir transférer le .top dans nao au "
-                             "préalable\n "
-                             "\nEntrez le nom du fichier généré (sans le .top)")
-champ2.pack()
-
-nomtopic = StringVar()
-nomtopic.set("universite")
-entreetopic = Entry(fenetre, textvariable=nomtopic, width=30)
-entreetopic.pack()
-champ3 = Label(fenetre, text="\nEntrez l'IP!")
-champ3.pack()
-host = StringVar()
-host.set("169.254.129.162")
-entreeip = Entry(fenetre, textvariable=host, width=30)
-entreeip.pack()
-
-
 # Permet de lancer nao avec le Topic demandé
-def load_nao():
-    host = entreeip.get()
-    nomtopic = entreetopic.get()
-    print (host)
+def load_nao(nomtopic, host):
     frame.insert(END, "\n" + "Demarrage sur ip : " + host)
     try:
         global session
@@ -187,7 +142,6 @@ def load_nao():
     topic_path = "/home/nao/dialog/" + nomtopic + ".top"
     # Loading the topic given by the user (absolute path is required)
     topf_path = topic_path.decode('utf-8')
-    print ("step 1")
     global topic_name
     topic_name = ALDialog.loadTopic(topf_path.encode('utf-8'))
 
@@ -200,7 +154,46 @@ def load_nao():
     print ("step 2")
 
 
-bouton_nao = Button(fenetre, text="Lancer le topic sur NAO", command=load_nao)
+bouton_choisir_csv = Button(fenetre, text="Choisir le fichier csv", command=csv_fileSelect)
+bouton_choisir_csv.pack()
+
+filename = StringVar(fenetre)
+entryCSV = Entry(fenetre, textvariable=filename, width="80")
+entryCSV.pack()
+
+bouton_choisir_directory = Button(fenetre, text="Choisir le dossier où mettre le .top généré", command=directorySelect)
+bouton_choisir_directory.pack()
+
+directoryname = StringVar(fenetre)
+entryDirectory = Entry(fenetre, textvariable=directoryname, width="80")
+entryDirectory.pack()
+
+champ2 = Label(fenetre, text="\nEntrez le nom du fichier généré (sans le .top)")
+champ2.pack()
+
+nomtopic = StringVar()
+nomtopic.set("universite")
+entreetopic = Entry(fenetre, textvariable=nomtopic, width=30)
+entreetopic.pack()
+champ3 = Label(fenetre, text="\nEntrez l'IP!")
+champ3.pack()
+host = StringVar()
+host.set("169.254.129.162")
+entreeip = Entry(fenetre, textvariable=host, width=30)
+entreeip.pack()
+
+
+
+
+def load():
+    nomtopic = entreetopic.get()
+    host = entreeip.get()
+    create_top(nomtopic)
+    load2(nomtopic, host)
+    load_nao(nomtopic, host)
+
+
+bouton_nao = Button(fenetre, text="Lancer le programme", command=load)
 bouton_nao.pack()
 
 bouton_quitter = Button(fenetre, text="quitter", command=quitter)
