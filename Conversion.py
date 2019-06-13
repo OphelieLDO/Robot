@@ -60,7 +60,8 @@ def replace_question_csv(str):
                 [" heure ", " créneau "],
                 [" matière ", " enseignement"],
                 [" secrétaire ", " assistant ", " assistante ", " responsable "],
-                [" bibliothèque ", " BU ", " biliotheque ", " bibliothèques ", " bibliotheques "])
+                [" bibliothèque ", " BU ", " biliotheque ", " bibliothèques ", " bibliotheques "],
+                [" combien ", " nombre "])
     for i in range(len(elements)):
         for j in range(len(elements[i])):
             sous_str = ""
