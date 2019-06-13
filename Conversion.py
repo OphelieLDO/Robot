@@ -12,6 +12,12 @@ import qi
 # Création de la fenetre et titre
 from tkinter.filedialog import askopenfilename, askdirectory
 
+global topic_name
+global topic
+global ALDialog
+global session
+global fenetre
+
 fenetre = Tk()
 fenetre.geometry("500x500")
 fenetre.title("Programme de conversion NAO")
@@ -24,29 +30,7 @@ frame = ScrolledText(content, borderwidth=5, relief="sunken", width=30, height=1
 session = qi.Session()
 ALDialog = None
 topic_name = None
-
-
-def quitter():
-    try:
-        global ALDialog
-        global session
-        global topic_name
-        global fenetre
-        ALDialog.unsubscribe(nomtopic)
-        # Deactivating the topic
-        # Loading the topic given by the user (absolute path is required)
-        ALDialog.deactivateTopic(topic_name)
-        # now that the dialog engine is stopped and there are no more activated topics,
-        # we can unload our topic and free the associated memory
-        ALDialog.unloadTopic(topic_name)
-        session.close()
-        fenetre.destroy()
-        sys.exit()
-    except RuntimeError:
-        print("\nCan't connect to Naoqi")
-        fenetre.destroy()
-        sys.exit(1)
-    fenetre.destroy()
+topic = None
 
 
 # Permet de convertir les lignes du csv
@@ -57,10 +41,11 @@ def replace_question_csv(str):
     for elem in elements:
         str = str.replace(elem, " ")
     # On met entre {} les mots non important
-    elements = [" s ", " m ", " t ", " j ", " l ", " d ", " qu ",
-                " comment ", " quoi ", " du ", " de ", " des ", " la ", " le ", " les ",
+    elements = [" s ", " m ", " t ", " j ", " l ", " d ", " qu ", " y a t il "
+                                                                  " comment ", " quoi ", " du ", " de ", " des ",
+                " la ", " le ", " les ",
                 " à ", " quel ", " quels ", " quelle ", " quelles ", " a ", " je ", " tu ", " il ", " que ",
-                " elle ", " on ", " nous ", " vous ", " ils ", " elles ", " mais ", " car ", " et ", " donc ",
+                " elle ", " on ", " y ", " nous ", " vous ", " ils ", " elles ", " mais ", " car ", " et ", " donc ",
                 " ni ", " ou ", " car ", " or ", " comme ", " lorsque ", " quand ", " si ", " ce ", " ces ",
                 " cette ", " cet ", " un ", " mon ", " ton ", " son ", " notre ", " votre ", " leur ", " ma ", " ta ",
                 " sa ", " mes ", " tes ", " ses ", " puis ", " ayant ", " en ", " est ", " à ", " par "]
@@ -120,9 +105,10 @@ def create_top(nomtopic):
                     if len(reponse_user) == len(reponse_robot):
                         for k in range(len(reponse_robot)):
                             fichier.write(
-                                "\n\tu" + str(nb) + ":(" + replace_question_csv(reponse_user[k]) + ") " + reponse_robot[k])
+                                "\n\tu" + str(nb) + ":(" + replace_question_csv(reponse_user[k]) + ") " + reponse_robot[
+                                    k])
                 i = i + 2
-                nb = nb+1
+                nb = nb + 1
         fichier.close()
 
 
@@ -157,6 +143,7 @@ def load2(nomtopic, host):
 
 # Permet de lancer nao avec le Topic demandé
 def load_nao(nomtopic, host):
+    global ALDialog
     frame.insert(END, "\n" + "Demarrage sur ip : " + host)
     try:
         global session
@@ -175,6 +162,7 @@ def load_nao(nomtopic, host):
     frame.insert(END, "\n" + "Chargement du dialogue")
     # download_data()
     topic_path = "/home/nao/dialog/" + nomtopic + ".top"
+
     # Loading the topic given by the user (absolute path is required)
     topf_path = topic_path.decode('utf-8')
     global topic_name
@@ -185,7 +173,32 @@ def load_nao(nomtopic, host):
 
     # Starting the dialog engine - we need to type an arbitrary string as the identifier
     # We subscribe only ONCE, regardless of the number of topics we have activated
-    ALDialog.subscribe(nomtopic)
+    ALDialog.subscribe('My Module')
+
+
+def quitter():
+    global ALDialog
+    global session
+    global topic_name
+    global fenetre
+    try:
+        # Stop dialog
+        ALDialog.unsubscribe('My Module')
+        # Deactivating the topic
+        # Loading the topic given by the user (absolute path is required)
+        ALDialog.deactivateTopic(topic_name)
+        # now that the dialog engine is stopped and there are no more activated topics,
+        # we can unload our topic and free the associated memory
+        ALDialog.unloadTopic(topic_name)
+
+        session.close()
+        fenetre.destroy()
+        sys.exit()
+    except RuntimeError:
+        print("\nCan't connect to Naoqi")
+        fenetre.destroy()
+        sys.exit(1)
+    fenetre.destroy()
 
 
 bouton_choisir_csv = Button(fenetre, text="Choisir le fichier csv", command=csv_fileSelect)
